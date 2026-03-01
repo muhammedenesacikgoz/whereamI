@@ -65,6 +65,9 @@
                 color: #94a3b8;
                 font-size: 13px;
             }
+            .to-signup {
+                opacity: 0.85;
+            }
         </style>
 </head>
 <div class="imza">
@@ -81,6 +84,9 @@
             <input type="password" name="password" placeholder="Password">
             <button type="submit">Log In</button>
         </form>
+        <button onclick="window.location.href='{% url "signup" %}'">
+            Sign Up
+        </button>
         <p class="forgot">Forgot your password?</p>
     </div>
 </div>
