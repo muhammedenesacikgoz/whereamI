@@ -1,6 +1,86 @@
-<h2>Login</h2>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Let's Start</button>
-</form>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a, #020617);
+            font-family: Arial, sans-serif
+            @media (max-width: 600px)
+            }
+
+            .login-wrapper {
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-bottom: 80px;
+                
+            }
+            .login-card {
+                width:340px;
+                padding: 40px;
+                border-radius:20px;
+                background: rgba(15,23,42,0.8);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+                text-align: center;
+                padding-bottom: 60px;
+            }
+            .login-card h2 {
+                color: white;
+                margin-bottom: 25px;
+            }
+            .login-card input {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 15px;
+                border-radius: 10px;
+                border: none;
+                background: #1e293b;
+                color: white;
+            }
+            .login-card button {
+                width: 100%;
+                padding: 12px;
+                border-radius: 12px;
+                border:none;
+                background:linear-gradient(90deg, #38bdf8, #6366f1);
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .login-card button:hover {
+                opacity: 0.9;
+            }
+
+            .forgot {
+                color:#94a3b8;
+                font-size: 14px;
+                margin-top: 10px;
+                cursor: pointer;
+            }
+            .forgot:hover {
+                color: #38bdf8;
+            }
+            .imza{
+                color: #94a3b8;
+                font-size: 13px;
+            }
+        </style>
+</head>
+<div class="imza">
+    <h8>A Muhammed Enes Açıkgöz Product, 2026</h8>
+</div>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2>Log In</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Log In</button>
+        </form>
+        <p class="forgot">Forgot your password?</p>
+    </div>
+</div>
