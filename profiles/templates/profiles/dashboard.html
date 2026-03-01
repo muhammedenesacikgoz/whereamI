@@ -75,10 +75,9 @@
         width:100%;
         background: rgba(0,0,0,0.7);
     ">
-    
 
 
-    
+
     <div class="friends-list" style="width: 200px; border: 1px solid rgba(255,255,255,0.1); padding: 20px; flex-shrink: 0; overflow-y: auto; background-color: rgba(62, 71, 75, 0.75);backdrop-filter: blur(4px); position: relative; z-index:2;">
         <h3 style="color: #c0bdb3; margin-bottom: 8px; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 1px;">Friends</h3>
         <p style="color:#c0bdb3; ">--------------------------------</p>
@@ -130,7 +129,7 @@
                     <form method="POST" style="margin-top: 30px;">
                         {% csrf_token %}
                         <select name="location" onchange="updateLocation(this)"
-                                style="padding: 8px 12px; border-radius: 8px; border: none; background: rgba(62, 71, 75, 0.75);backdrop-filter: blur(4px); color: #DAD7CD;">
+                                style="padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer;background: rgba(62, 71, 75, 0.75);backdrop-filter: blur(4px); color: #DAD7CD;">
                     
                             <option value="">Select your location</option>
                     
@@ -151,7 +150,7 @@
                             font-size:1.2rem;
                             bottom: 30px;
                             right: 40px;
-                            background: rgba(0,0,0,0.7);
+                            background:rgba(62, 71, 75, 0.75);
                             padding: 10px 18px;
                             border-radius: 8px;
                             backdrop-filter: blur(6px);
@@ -219,4 +218,3 @@
         }, 1200);
     }
 </script>
-
