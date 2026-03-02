@@ -107,7 +107,7 @@
         .top-avatar {
             transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
             border: 2px solid #a2a580;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.82);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.82) ;
         }
         .top-avatar:hover {
 
@@ -181,16 +181,16 @@
                 style="width:150px; height:150px; border-radius:50%; object-fit:cover; margin-bottom:20px; cursor: none;">
                 {% endif %}
                 
-                <h1 style="margin-bottom: 12px; color: #DAD7CD; font-size: 3rem; letter-spacing: -1px;">{{ profile.display_name }}</h1>
+                <h1 style="margin-top:5px;margin-bottom: 5px; color: #DAD7CD; font-size: 3rem; letter-spacing: -1px;">{{ profile.display_name }}</h1>
                 {% if profile.bio %}
-                <p class="bio-text" style="margin-top: 10px; color: #BCAC9B; font-size: 1.2rem; max-width: 400px; font-style: italic;">
+                <p class="bio-text" style="margin-top: 5px; color: #BCAC9B; font-size: 1.2rem; max-width: 400px; font-style: italic;">
                     {{ profile.bio }}
                 </p> 
                 {% else %}
-                <p style="margin-top: 10px; color: #BCAC9B; font-size: 1.2rem; max-width: 400px; font-style: italic;">No bio yet</p>
+                <p style="margin-top: 5px;margin-bottom: 5px; color: #BCAC9B; font-size: 1.2rem; max-width: 400px; font-style: italic;">No bio yet</p>
                 {% endif %}
                 {% if request.user != profile.user and my_profile %}
-                    <div style=" position: absolute; top:20px; right:30px; z-index:10;">
+                    <div style=" position: absolute; bottom:20px; z-index:10;">
                         <a href="{% url 'profile' request.user.username %}">
                             {% if my_profile.avatar %}
                             <img src="{{ my_profile.avatar.url }}"
@@ -202,7 +202,7 @@
     </div>
                 {% if request.user == profile.user %}
 
-                    <form method="POST" style="margin-top: 30px;">
+                    <form method="POST" style="margin-top: 10px;">
                         {% csrf_token %}
                         <select name="location" onchange="updateLocation(this)"
                                 style="padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer;background: rgba(62, 71, 75, 0.75);backdrop-filter: blur(4px); color: #DAD7CD;">
@@ -217,6 +217,16 @@
                             {% endfor %}
 
                         </select>
+                    </form>
+                    <form method="POST" style="margin-top: 5x;margin-bottom: 3px;">
+                        {% csrf_token %}
+                        <button name="invite" style="padding: 8px 12px; border-radius: 8px; border:none;cursor:pointer; background: rgba(62,71,75,0.75); backdrop-filter: blur(4px); color: #DAD7CD">Invite</button>
+
+                    </form>
+                    <form method="POST" style="margin-top: 3x;">
+                        {% csrf_token %}
+                        <button name="add_invite" style="padding: 1px 10px; font-size: 1.4rem ;border-radius: 8px; border:none;cursor:pointer; background: none; backdrop-filter: blur(4px); color: #DAD7CD">+</button>
+
                     </form>
                     <div id="location-feedback" style="
                             opacity:0;

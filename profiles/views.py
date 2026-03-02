@@ -57,7 +57,6 @@ class SignUpView(generic.CreateView):
     template_name = "registration/signup.html"
 
 
-
 def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
