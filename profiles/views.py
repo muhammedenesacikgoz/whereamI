@@ -38,6 +38,18 @@ def profile_view(request, username):
 
     }
     return render(request, "profiles/dashboard.html", context)
+@login_required
+def home_view(request):
+    if request.method == "POST":
+        pass
+    return render(request, "home/home.html")
+
+@login_required
+def friends_view(request):
+    if request.method == "POST":
+        pass
+    return render(request, "friends/friends.html")
+
 
 @login_required
 def update_location(request):
@@ -66,3 +78,5 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, "registration/signup.html", {"form":form})
+
+

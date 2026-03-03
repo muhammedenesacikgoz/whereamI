@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <h1>Friends page</h1>
+</head>
+<body>
+    <div style="position: fixed; bottom: 25px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; z-index: 3000; pointer-events: none;">
+    <div style="display: flex; align-items: center; gap: 20px; background: rgba(20, 20, 20, 0.85); padding: 10px 25px; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); pointer-events: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.5);">
+        
+        <a href="{% url 'home' %}">
+            <img src="{% static 'feed.png' %}" 
+                 style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover;" 
+                 class="top-avatar">
+        </a>
+
+        <a href="{% url 'profile' request.user.username %}">
+            {% if my_profile.avatar %}
+                <img src="{{ my_profile.avatar.url }}" 
+                     style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #a2a580;" 
+                     class="top-avatar">
+            {% else %}
+                <img src="{% static 'default-avatar.png' %}" 
+                     style="width: 55px; height: 55px; border-radius: 50%; border: 2px solid #a2a580;">
+            {% endif %}
+        </a>
+
+        <a href="{% url 'friends' %}">
+            <img src="{% static 'friends.png' %}" 
+                 style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover;" 
+                 class="top-avatar">
+        </a>
+        
+    </div>
+</div>
+</body>
+</html>

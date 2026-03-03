@@ -1,3 +1,4 @@
+{% load static %}
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>whereamI?</title>
@@ -192,18 +193,11 @@
                 {% else %}
                 <p style="margin-top: 5px;margin-bottom: 5px; color: #BCAC9B; font-size: 1.2rem; max-width: 400px; font-style: italic;">No bio yet</p>
                 {% endif %}
-                {% if request.user != profile.user and my_profile %}
-                    <div style=" position: absolute; bottom:20px; z-index:10;">
-                        <a href="{% url 'profile' request.user.username %}">
-                            {% if my_profile.avatar %}
-                            <img src="{{ my_profile.avatar.url }}"
-                            style="width: 50px; height:50; border-radius:50%; object-fit: cover; cursor:pointer;" class="top-avatar">
-                            {% endif %}
-                        </a>
-                    </div>
-                {% endif %}
+
     </div>
+
                 {% if request.user == profile.user %}
+    
 
                     <form method="POST" style="margin-top: 10px;">
                         {% csrf_token %}
@@ -221,7 +215,6 @@
 
                         </select>
                     </form>
-
                         <button id="invite-btn" style="padding: 8px 12px; border-radius: 8px; border:none;cursor:pointer; background: rgba(62,71,75,0.75); backdrop-filter: blur(4px); color: #DAD7CD">Invite</button>
 
 
@@ -250,6 +243,9 @@
                     {% endif %}
 
                 {% endif %}
+            {% if profile.user != request.user%}
+                <button id="join-btn" style="padding: 8px 12px; border-radius: 8px; border:none;cursor:pointer; background: rgba(62,71,75,0.75); backdrop-filter: blur(4px); color: #DAD7CD">Invite</button>
+            {% endif %}
             </div>
             
         </div>
@@ -367,7 +363,25 @@ document.addEventListener("DOMContentLoaded", function() {
     updateInviteUI();
 });
 </script>
+<div style="position: fixed; bottom: 25px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; z-index: 3000; pointer-events: none;">
+    <div style="display: flex; align-items: center; gap: 25px; background: rgba(20, 20, 20, 0.6); padding: 10px 25px; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); pointer-events: auto;">
+        
+        <a href="{% url 'home' %}">
+            <img src="{% static 'feed.png' %}" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;" class="top-avatar">
+        </a>
 
+
+        <a href="{% url 'profile' request.user.username %}">
+            <img src="{{ my_profile.avatar.url }}" style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #a2a580;" class="top-avatar">
+        </a>
+
+        <a href="{% url 'friends' %}">
+            <img src="{% static 'friends.png' %}" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;" class="top-avatar">
+        </a>
+        
+    </div>
+</div>
+</body>
 <div id="invite-modal" style="
 display:none;
 position:fixed;
