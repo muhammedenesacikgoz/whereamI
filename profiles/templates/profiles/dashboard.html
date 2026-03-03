@@ -127,7 +127,10 @@
         .mobile-menu {
             display: none;
         }
-
+        .friend-item.selected {
+            background: rgba(255, 255, 255, 0);
+            border: 1px solid #a2a580;
+        }
     </style>
 </head>
 <div style="
@@ -218,16 +221,10 @@
 
                         </select>
                     </form>
-                    <form method="POST" style="margin-top: 5x;margin-bottom: 3px;">
-                        {% csrf_token %}
-                        <button name="invite" style="padding: 8px 12px; border-radius: 8px; border:none;cursor:pointer; background: rgba(62,71,75,0.75); backdrop-filter: blur(4px); color: #DAD7CD">Invite</button>
 
-                    </form>
-                    <form method="POST" style="margin-top: 3x;">
-                        {% csrf_token %}
-                        <button name="add_invite" style="padding: 1px 10px; font-size: 1.4rem ;border-radius: 8px; border:none;cursor:pointer; background: none; backdrop-filter: blur(4px); color: #DAD7CD">+</button>
+                        <button id="invite-btn" style="padding: 8px 12px; border-radius: 8px; border:none;cursor:pointer; background: rgba(62,71,75,0.75); backdrop-filter: blur(4px); color: #DAD7CD">Invite</button>
 
-                    </form>
+
                     <div id="location-feedback" style="
                             opacity:0;
                             transition: opacity 0.4s ease;
@@ -314,4 +311,106 @@
             this.innerHTML = "☰";
         }
     });
+
+// Invite Modal Logic
+document.addEventListener("DOMContentLoaded", function() {
+
+    const inviteBtn = document.getElementById("invite-btn");
+    const modal = document.getElementById("invite-modal");
+    const closeModal = document.getElementById("close-modal");
+    const inviteSubmit = document.getElementById("invite-submit");
+    const selectedPreview = document.getElementById("selected-preview");
+    
+    let selectedFriends = new Set();
+
+    inviteBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+    });
+    
+    closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+    
+    document.querySelectorAll(".friend-item").forEach(item => {
+        item.addEventListener("click", () => {
+            const id = item.dataset.id;
+            
+            if (selectedFriends.has(id)) {
+                selectedFriends.delete(id);
+                item.classList.remove("selected");
+            } else {
+                selectedFriends.add(id);
+                item.classList.add("selected");
+            }
+
+            updateInviteUI();
+        });
+    });
+    
+    function updateInviteUI() {
+        inviteSubmit.textContent = `Invite (${selectedFriends.size})`;
+        
+        selectedPreview.innerHTML = "";
+        selectedFriends.forEach(id => {
+            const span = document.createElement("span");
+            span.textContent = "● ";
+            selectedPreview.appendChild(span);
+        });
+    }
+
+    inviteSubmit.addEventListener("click", () => {
+        console.log("Selected friends:", Array.from(selectedFriends));
+        modal.style.display = "none";
+    });
+    selectedFriends.clear();
+    document.querySelectorAll(".friend-item").forEach(i => i.classList.remove("selected"));
+    updateInviteUI();
+});
 </script>
+
+<div id="invite-modal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+backdrop-filter: blur(6px);
+justify-content:center;
+align-items:center;
+z-index:2000;
+">
+<div style="
+background:rgba(30,30,30,0.95);
+padding:20px;
+border-radius:12px;
+width:90%;
+max-width:400px;
+max-height:70vh;
+overflow-y:auto;
+color:#DAD7CD;
+position:relative;
+">
+<span id="close-modal" style="
+position:absolute;
+right:15px;
+top:10px;
+cursor:pointer;
+font-size:1.3rem;
+">✕</span>
+<h3> Invite Friends</h3>
+
+<div id="selected-preview" style ="margin-bottom:10px;"></div>
+
+<div id="friend-list">
+{% for friend in friends %}
+<div class="friend-item"
+    data-id="{{friend.user.id}}"
+    style="padding:8px; border-radius:8px; cursor:pointer; margin-bottom:6px;">{{friend.display_name}}
+</div>
+{% endfor %}
+</div>
+<button id="invite-submit" style="margin-top:10px; width:100%; padding:8px; border:none;border-radius:8px;background: #3e474b; color: #DAD7CD; cursor:pointer;">Invite (0)</button>
+</div>
+</div>
